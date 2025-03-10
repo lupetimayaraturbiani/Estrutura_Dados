@@ -1,5 +1,6 @@
 package projeto_revisao_ed;
 
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -76,5 +77,43 @@ public class Main {
         System.out.println("Tamanho do vetor: " + vetor.tamanho);
         System.out.println(vetor.toString());
 
+        ArrayList<String> arrayList = new ArrayList<String>();
+
+        arrayList.add("Elemento A");
+        arrayList.add("Elemento C");
+
+        System.out.println(arrayList);
+
+        arrayList.add(1, "Elemento B");
+
+        System.out.println(arrayList);
+
+        //método de busca que retorna true  ou false
+        boolean existe = arrayList.contains("Elemento C");
+        if(existe){
+            System.out.println("Elemento encontrados no vetor");
+        } else{
+            System.out.println("Elemento não existe no vetor");
+        }
+
+        //método de busca que retorna a posição
+        int posicao = arrayList.indexOf("Elemento C");
+        if(posicao > -1){
+            System.out.println("Elemento encontrado na posição n° " + posicao);
+        }  else {
+            System.out.println("Elemento não existe no vetor");
+        }
+
+        //método de busca por posição que retorna o elemento
+        System.out.println(arrayList.get(1));
+
+        //método de deletar elemento de vetor, aceita tanto a posiçaõ quanto o elemento
+        arrayList.remove(0);
+        arraylist.remove("Elemento C");
+
+        //método que retorna o tamanho da array
+        System.out.println("Tamanho do vetor: " + arrayList.size());
+
+        
     }
 }
