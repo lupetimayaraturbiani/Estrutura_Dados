@@ -12,8 +12,13 @@ public class Main {
 
         try {
             produtos.adiciona(p1);
+            produtos.adiciona(p2);
+            produtos.adiciona(p3);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println(produtos);
+
     }
 }

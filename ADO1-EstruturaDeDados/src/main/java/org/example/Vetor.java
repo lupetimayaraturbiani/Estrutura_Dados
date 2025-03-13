@@ -13,10 +13,20 @@ public class Vetor {
 
     @Override
     public String toString() {
-        return "Vetor{" +
-                "produtos=" + Arrays.toString(produtos) +
-                ", tamanho=" + tamanho +
-                '}';
+        StringBuilder s = new StringBuilder();
+        s.append("[");
+
+        for (int i = 0; i < this.tamanho; i++) {
+            s.append(this.produtos[i]);
+            s.append(",");
+        }
+
+        if (this.tamanho > 0) {
+            s.append(this.produtos[this.tamanho - 1]);
+        }
+
+        s.append("]");
+        return s.toString();
     }
 
     public void aumentaCapacidade(){
