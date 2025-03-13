@@ -109,7 +109,7 @@ public class Main {
 
         //método de deletar elemento de vetor, aceita tanto a posiçaõ quanto o elemento
         arrayList.remove(0);
-        arraylist.remove("Elemento C");
+        arrayList.remove("Elemento C");
 
         //método que retorna o tamanho da array
         System.out.println("Tamanho do vetor: " + arrayList.size());
