@@ -3,11 +3,11 @@ package org.example;
 import java.util.Arrays;
 
 public class Vetor {
-    public Produto[] produtos;
+    public Object[] produtos;
     public int tamanho;
 
-    public Vetor(Produto[] produtos, int tamanho) {
-        this.produtos = produtos;
+    public Vetor(int capacidade) {
+        this.produtos = new Object[capacidade];
         this.tamanho = 0;
     }
 
@@ -21,7 +21,7 @@ public class Vetor {
 
     public void aumentaCapacidade(){
         if(this.tamanho == this.produtos.length){
-            Produto[] produtosNovos = new Produto[this.produtos.length * 2];
+            Object[] produtosNovos = new Object[this.produtos.length * 2];
             for (int i = 0; i < this.produtos.length; i++) {
                 produtosNovos[i] = this.produtos[i];
             }
@@ -29,16 +29,13 @@ public class Vetor {
         }
     }
 
-    public void adiciona(String idProduto, String nome, int quantidade) throws Exception{
+    public void adiciona(Object produto) throws Exception{
         this.aumentaCapacidade();
-        if(this.tamanho < this.produtos.length){
-            produtos[this.tamanho ++] = new Produto(idProduto, nome, quantidade);
-        } else {
-            throw new Exception("Capacidade máxima de produtos atingida");
-        }
+        this.produtos[this.tamanho] = produtos;
+        this.tamanho ++;
     }
 
-    public boolean adicionaPosicao(int posicao, Produto produto) throws Exception{
+    public boolean adicionaPosicao(int posicao, Object produto) throws Exception{
         this.aumentaCapacidade();
         if(posicao >= 0 && posicao < tamanho){
             for(int i = this.tamanho -1; i>=posicao;i--){
@@ -52,7 +49,7 @@ public class Vetor {
         return true;
     }
 
-    public Produto busca(int posicao) throws Exception{
+    public Object busca(int posicao) throws Exception{
         if(posicao >= 0 && posicao < tamanho){
             return this.produtos[posicao];
         } else{
