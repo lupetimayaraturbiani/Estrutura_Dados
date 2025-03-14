@@ -9,6 +9,7 @@ public class Main {
         Produto p1 = new Produto("44781", "chocolate", 43);
         Produto p2 = new Produto("55783", "bala de goma", 50);
         Produto p3 = new Produto("52111", "salgadinho", 45);
+        Produto p4 = new Produto("22471", "refrigerante", 80);
 
         try {
             produtos.adiciona(p1);
@@ -20,5 +21,14 @@ public class Main {
 
         System.out.println(produtos);
 
+        //problema que esta adicionanado um produto a mais
+        try{
+            produtos.adicionaPosicao(1, p4);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        System.out.println(produtos.tamanho);
     }
 }

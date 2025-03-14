@@ -14,13 +14,12 @@ public class Vetor {
     @Override
     public String toString() {
         
-        
         StringBuilder s = new StringBuilder();
-        s.append("[");
+        s.append("[Produtos:");
 
         for (int i = 0; i < this.tamanho; i++) {
             s.append(this.produtos[i]);
-            s.append(",");
+            s.append("\n");
         }
 
         if (this.tamanho > 0) {
@@ -44,8 +43,8 @@ public class Vetor {
         }
     }
 
-    public void adiciona(Object produto){// throws Exception{
-        //this.aumentaCapacidade();
+    public void adiciona(Object produto){
+        this.aumentaCapacidade();
         this.produtos[this.tamanho] = produto;
         this.tamanho ++;
     }
