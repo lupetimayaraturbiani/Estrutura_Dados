@@ -8,8 +8,8 @@ public class Fila {
     private int tamanho;
     private int atendimentoPrioritario;
 
-    public Fila(Paciente[] fila, int capacidade, int inicio, int fim, int tamanho, int atendimentoPrioritario) {
-        this.fila = fila;
+    public Fila(int capacidade) {
+        this.fila = new Paciente[capacidade];
         this.capacidade = capacidade;
         this.inicio = 0;
         this.fim = -1;
@@ -80,6 +80,54 @@ public class Fila {
     }
 
     public void listarPacientes(){
-        
+        if(estaVazia()){
+            System.out.println("A fila está vazia.");
+            return;
+        }
+
+        System.out.println("Pacientes na fila: ");
+        for (int i = 0; i < tamanho; i++) {
+            int indice = (inicio + i) % capacidade;
+            System.out.println((i + 1) + ". " + fila[indice]);
+        }
+    }
+
+    public void removerPaciente(String nome){
+        if (this.estaVazia()){
+            System.out.println("Fila vazia.");
+            return;
+        }
+
+        int indiceRemover = -1;
+        for (int i = 0; i < tamanho; i++) {
+            int indice = (inicio + i) % capacidade;
+            if(fila[indice].getNome().equalsIgnoreCase(nome)){
+                indiceRemover = indice;
+                break;
+            }
+        }
+
+        if (indiceRemover == -1){
+            System.out.println("Paciente com o nome " + nome + " não existe na fila");
+            return;
+        }
+
+        if (indiceRemover == inicio){
+            inicio = (inicio + 1) % capacidade;
+        } else if (indiceRemover == fim) {
+            fim = (fim - 1 + capacidade) % capacidade;
+        } else {
+            int atual = indiceRemover;
+            int prox = (atual + 1) % capacidade;
+            while(atual != fim) {
+                fila[atual] = fila[prox];
+                atual = prox;
+                prox = (atual + 1) % capacidade;
+            }
+            fila[fim] = null;
+            fim = (fim - 1 + capacidade) % capacidade;
+        }
+        tamanho --;
+        System.out.println("Paciente " + nome + " removido com sucesso da fila!");
     }
 }
