@@ -16,7 +16,7 @@ public class Main {
             System.out.println("4. Listar pacientes na fila");
             System.out.println("5. Visualizar próximo paciente");
             System.out.println("6. Excluir senha");
-            System.out.println("7. Sair");
+            System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
             op = sc.nextInt();
             sc.nextLine();
@@ -35,18 +35,18 @@ public class Main {
                     fila.adicionarPaciente(new Paciente(nomePrioridade, true));
                     break;
                 case 3:
-                    System.out.println("******** Atender próximo paciente ********");
-                    System.out.println(fila.atenderPaciente());
+                    System.out.println("******** Atender próximo(a) paciente ********");
+                    fila.atenderPaciente();
                     break;
                 case 4:
                     System.out.println("******** Listar paciente na fila ********");
                     fila.listarPacientes();
                     break;
                 case 5:
-                    System.out.println("****** Visualizar próximo paciente ******");
+                    System.out.println("****** Visualizar próximo(a) paciente ******");
                     Paciente prox = fila.proximoPaciente();
-                    if (prox != null) {
-                        System.out.println("Próximo paciente a ser atendido: " + prox.getNome());
+                    if (prox == null) {
+                        System.out.println("Não tem nenhum paciente na fila, no momento.");
                     }
                     break;
                 case 6:
@@ -61,7 +61,7 @@ public class Main {
                 default:
                     System.out.println("Opção inválida");
             }
-        } while (op != 7);
+        } while (op != 0);
 
         sc.close();
 

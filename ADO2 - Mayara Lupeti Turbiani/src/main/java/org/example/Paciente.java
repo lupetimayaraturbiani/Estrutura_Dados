@@ -1,12 +1,22 @@
 package org.example;
 
+import java.util.Random;
+
 public class Paciente {
+    //talvez adicionar um número de senha randômico que será chamadi quando for o próximo
     private String nome;
     private boolean prioridade;
+    private int senha;
 
     public Paciente(String nome, boolean prioridade) {
         this.nome = nome;
         this.prioridade = prioridade;
+        this.senha = gerarSenha();
+    }
+
+    private int gerarSenha() {
+        Random r = new Random();
+        return r.nextInt(900) + 100;
     }
 
     public String getNome() {
@@ -27,6 +37,6 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "Nome: " + nome + (prioridade ? " (Prioridade)" : "");
+        return "Senha: " + senha + "\nNome: " + nome + (prioridade ? " (Prioridade)" : "");
     }
 }

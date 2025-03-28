@@ -46,13 +46,13 @@ public class Fila {
             for(int i = 0; i < tamanho; i++){
                 int indice = (inicio + i) % capacidade;
                 if(fila[indice].temPrioridade()){
-                    System.out.println("Próximo a ser atendido: " + fila[indice]);
+                    System.out.println("Próximo a ser atendido: \n" + fila[indice]);
                     return fila[indice];
                 }
 
             }
         }
-        System.out.println("Próximo a ser atendido: " + fila[inicio]);
+        System.out.println("Próximo a ser atendido(a): \n" + fila[inicio]);
         return fila[inicio];
     }
 
@@ -64,8 +64,7 @@ public class Fila {
 
         Paciente pacienteAtendido = proximoPaciente();
         if(pacienteAtendido != null){
-            inicio = (inicio + 1) % capacidade;
-            tamanho --;
+            removerPaciente(pacienteAtendido.getNome());
 
             if (pacienteAtendido.temPrioridade()) {
                 atendimentoPrioritario++;
@@ -73,7 +72,7 @@ public class Fila {
                 atendimentoPrioritario = 0;
             }
 
-            System.out.println("Atendendo paciente: " + pacienteAtendido);
+            System.out.println("Paciente " + pacienteAtendido.getNome() + " atendido(a) com sucesso!");
             return pacienteAtendido;
         }
         return null;
@@ -88,7 +87,7 @@ public class Fila {
         System.out.println("Pacientes na fila: ");
         for (int i = 0; i < tamanho; i++) {
             int indice = (inicio + i) % capacidade;
-            System.out.println((i + 1) + ". " + fila[indice]);
+            System.out.println((i + 1) + ". " + "\n" + fila[indice]);
         }
     }
 
