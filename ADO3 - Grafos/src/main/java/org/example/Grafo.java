@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Grafo {
      private Map<String, List<String>> adjacencias;
+     private int profundidadeMax;
 
      public Grafo(){
          adjacencias = new HashMap<>();
@@ -17,19 +18,19 @@ public class Grafo {
 
     //metodo que adiciona uma estrada (aresta não-direcionada)
     public void adicionaEstrada(String cidade1, String cidade2){
-         //verifica se uma ou ambas cidades ja existem no grafo
+         //verifica se uma ou ambas cidades não existem no grafo
          if (!adjacencias.containsKey(cidade1) || !adjacencias.containsKey(cidade2)){
              System.out.println("A cidade(s) não existem");
              return;
          }
-         //se as cidades não existirem elas são adicionadas
+         //se as cidades existirem elas são adicionadas a uma estrada
          adjacencias.get(cidade1).add(cidade2);
          adjacencias.get(cidade2).add(cidade2);
     }
 
     //metodo que remove cidade/aresta
     public void removeCidade(String cidade){
-         //virefica se a cidade existe no grafo
+         //verifica se a cidade existe no grafo
          if (!adjacencias.containsKey(cidade)){
              //se não existir, não tem o que remover então o metodo termina aqui
             return;
@@ -91,34 +92,47 @@ public class Grafo {
     }
 
     //metodo que busca em profundidade (dfs : depth-first-search)
-    private void dfs(String cidade, Set<String> visitados){
-         //primeiro verifica se a cidade ja foi visitada, se sim o metodo termina
-         if(!visitados.contains(cidade)){
-             //se não foi visitada, ela é impressa
-             System.out.println(cidade + " ");
-             //e depois é adicionada ao conjunto visitados
-             visitados.add(cidade);
-             //percorre a lista de cidades vizinhas e chama o metodo dfs
-             //de forma recursiva, e assim cada cidade conectada pode ser explorada
-             for(String vizinho : adjacencias.get(cidade)){
-                 dfs(vizinho, visitados);
-             }
-         }
+    private void dfs(String atual, Set<String> visitados, int nivel) {
+        //marca o vértice atual como visitado
+        visitados.add(atual);
+
+        //imprime o nome do vértice, indentado conforme a profundidade (opcional, apenas visual)
+        System.out.println(" ".repeat(nivel * 2) + atual);
+
+        //atualiza a profundidade máxima, se a profundidade atual for maior
+        if (nivel > profundidadeMax) {
+            profundidadeMax = nivel;
+        }
+
+        //para cada vizinho do vértice atual (se houver)
+        // percorre todos os vizinhos do vértice atual
+        // se não houver vizinhos, usa uma lista vazia como padrão
+        for (String vizinho : adjacencias.getOrDefault(atual, new ArrayList<>())) {
+            // verifica se o vizinho ainda não foi visitado
+            // se não foi, chama recursivamente o dfs para esse vizinho
+            if (!visitados.contains(vizinho)) {
+                dfs(vizinho, visitados, nivel + 1);
+            }
+        }
     }
 
+
     //metodo que busca em profundidade a partir de uma cidade
-    public void buscarProfundidade(String origem){
-         //declara visitados que servirá para
-         //registrar quais cidades ja foram vistas
-         Set<String> visitados = new HashSet<>();
-         //imprime uma mensagem para informar o
-         //inicio da busca antes da execução do dfs
-         System.out.println("Buscando profundidade por " + origem + ":");
-         //inicia a busca em profundidade a partir da cidade origem
-         //o metodo dfs percorre recursivamente todas as conexões
-         //até explorar o subgrafo conectado a cidade de origem
-         dfs(origem, visitados);
-         //imprime uma linha vazia por fins estéticos
-         System.out.println();
+    public void buscarProfundidade(String origem) {
+        //cria um conjunto para registrar os vértices já visitados
+        Set<String> visitados = new HashSet<>();
+
+        //zera a profundidade máxima antes de iniciar uma nova busca
+        profundidadeMax = 0;
+
+        //exibe uma mensagem informando o início da busca
+        System.out.println("Buscando profundidade por " + origem + ":");
+
+        //inicia a busca em profundidade a partir do vértice de origem, no nível 0
+        dfs(origem, visitados, 0);
+
+        //imprime a profundidade máxima alcançada após a busca
+        System.out.println("\nProfundidade máxima: " + profundidadeMax);
     }
+
 }
