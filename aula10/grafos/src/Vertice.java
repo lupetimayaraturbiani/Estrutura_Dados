@@ -35,5 +35,13 @@ public class Vertice<TIPO> {
         this.arestaSaida = arestaSaida;
     }
 
-    
+    public void adicionarArestaEntrada(Aresta<TIPO> aresta){
+        this.arestaEntrada.add(aresta);
+    }
+
+    public void adicionarArestaSaida (Aresta<TIPO> aresta){
+        this.arestaSaida.add(aresta);
+    }
+
+
 }

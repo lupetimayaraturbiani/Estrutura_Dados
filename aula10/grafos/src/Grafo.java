@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Grafo<TIPO> {
     private ArrayList<Vertice<TIPO>> vertices;
-    private ArrayList<Vertice<TIPO>> arestas;
+    private ArrayList<Aresta<TIPO>> arestas;
 
     public Grafo(){
         this.vertices = new ArrayList<Vertice<TIPO>>();
@@ -17,9 +17,49 @@ public class Grafo<TIPO> {
     public void adicionaAresta(Double peso, TIPO dadoInicio, TIPO dadoFim){
         Vertice<TIPO> inicio = this.getVertice(dadoInicio);
         Vertice<TIPO> fim = this.getVertice(dadoFim);
+
+        if (inicio == null || fim == null) {
+            System.out.println("Erro: vértice de início ou fim não encontrado.");
+            return;
+        }
+
         Aresta<TIPO> aresta = new Aresta<TIPO>(peso, inicio, fim);
         inicio.adicionarArestaSaida(aresta);
-        fim.adicionaArestaEntrada(aresta);
+        fim.adicionarArestaEntrada(aresta);
         this.arestas.add(aresta);
+    }
+
+    public Vertice<TIPO> getVertice(TIPO dado){
+        Vertice<TIPO> vertice = null;
+        for(int i = 0; i < this.vertices.size(); i++){
+            if(this.vertices.get(i).getDado().equals(dado)){
+                vertice = this.vertices.get(i);
+                break;
+            }
+        }
+        return vertice;
+    }
+
+    public void buscaEmLargura(){
+        ArrayList<Vertice<TIPO>> marcados = new ArrayList<Vertice<TIPO>>();
+        ArrayList<Vertice<TIPO>> fila = new ArrayList<Vertice<TIPO>>();
+        Vertice<TIPO> atual = this.vertices.get(0);
+
+        marcados.add(atual);
+        System.out.println(atual.getDado());
+        fila.add(atual);
+
+        while(fila.size() > 0){
+            Vertice<TIPO> visitado = fila.get(0);
+            for (int i = 1; i < visitado.getArestaSaida().size(); i++){
+                Vertice<TIPO> proximo = visitado.getArestaSaida().get(i).getFim();
+                if (!marcados.contains(proximo)) {
+                    marcados.add(proximo);
+                    System.out.println(proximo.getDado());
+                    fila.add(proximo);
+                }
+            }
+            fila.remove(0);
+        }
     }
 }
