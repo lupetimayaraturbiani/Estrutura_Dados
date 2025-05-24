@@ -51,7 +51,7 @@ public class Grafo<TIPO> {
 
         while(fila.size() > 0){
             Vertice<TIPO> visitado = fila.get(0);
-            for (int i = 1; i < visitado.getArestaSaida().size(); i++){
+            for (int i = 0; i < visitado.getArestaSaida().size(); i++){
                 Vertice<TIPO> proximo = visitado.getArestaSaida().get(i).getFim();
                 if (!marcados.contains(proximo)) {
                     marcados.add(proximo);
